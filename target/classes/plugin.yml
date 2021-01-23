@@ -1,9 +1,14 @@
 name: TPTrace
-main: io.github.soulofakuma
+main: io.github.soulofakuma.TPTrace
 version: 1.0.0
 commands:
   back:
     description: Go back to the position you were previously teleported from.
-    usage: /back [number of steps]
-    permission: local.dec.TPTrace.back
-    permission-message: You don't have the permission to run this command
+    usage: /back [optional number of steps]
+    permission: tptrace.back
+    permission-message: You don't have the permission to run this command!
+  backlist:
+    description: See a list of past locations you've teleported from.
+    usage: /backlist [optional number of steps]
+    permission: tptrace.backlist
+    permission-message: You don't have the permission to run this command!

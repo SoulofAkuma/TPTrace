@@ -1,4 +1,4 @@
-package local.dev.TPTrace;
+package io.github.soulofakuma;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -39,7 +39,6 @@ public class Teleporter implements CommandExecutor, Listener {
 	public void onPlayerTeleport(PlayerTeleportEvent event) {
 		if (!this.moderator.isTriggering(event.getPlayer())) {
 			this.moderator.addLocation(event.getPlayer(), this.moderator.getPreviousLocation(event.getPlayer()));
-			event.getPlayer().sendMessage(ChatColor.GREEN + "Your teleport has been recorded");
 		}
 		//event.getPlayer().sendMessage("You are at x:" + String.valueOf(prev.getX()) + " y:" + String.valueOf(prev.getY()) + " and are going to x:" + String.valueOf(event.getTo().getX()) + " y:" + String.valueOf(event.getTo().getY()));
 	}
@@ -57,7 +56,7 @@ public class Teleporter implements CommandExecutor, Listener {
 	@EventHandler
 	public void onDeath(PlayerDeathEvent event) {
 		this.moderator.addLocation(event.getEntity().getPlayer(), this.moderator.getPreviousLocation(event.getEntity().getPlayer()));
-		event.getEntity().getPlayer().sendMessage(ChatColor.GREEN + "Your death location has been saved and can be reached with /back");
+		TPTrace.sendMessage(event.getEntity().getPlayer(), ChatColor.DARK_GREEN + "Your death location has been saved and can be reached with /back!");
 	}
 	
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -65,30 +64,32 @@ public class Teleporter implements CommandExecutor, Listener {
 			Player player = (Player) sender;
 			if (args.length == 0) {
 				teleport(player, this.moderator.removeLocations(player, 1));
-			} else if (args.length == 1 && isInt(args[0])) {
+			} else if (args.length == 1 && Teleporter.isInt(args[0])) {
 				int steps = Integer.parseInt(args[0]);
 				if (steps < 1) return false;
 				teleport(player, this.moderator.removeLocations(player, steps));
+			} else {
+				return false;
 			}
 			return true;
 		} else {
-			sender.sendMessage("This is a player only command!");
+			TPTrace.sendMessage(sender, "This is a player only command!");
+			return true;
 		}
-		return false;
 	}
 	
 	private void teleport(Player player, Location loc) {
 		if (loc == null) {
-			player.sendMessage(ChatColor.RED + "There is nowhere to go back to!");
+			TPTrace.sendMessage(player, ChatColor.DARK_RED + "There is nowhere to go back to!");
 		} else {
 			this.moderator.changeTriggerState(player);
 			player.teleport(loc);
-			player.sendMessage(ChatColor.YELLOW + "Teleported back!");
+			TPTrace.sendMessage(player, ChatColor.GOLD + "Teleported back!");
 			this.moderator.changeTriggerState(player);
 		}
 	}
 	
-	public boolean isInt(String str) {
+	public static boolean isInt(String str) {
 	    if(str.isEmpty()) return false;
 	    for(int i = 0; i < str.length(); i++) {
 	        if(i == 0 && str.charAt(i) == '-') {

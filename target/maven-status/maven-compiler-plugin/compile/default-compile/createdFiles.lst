@@ -1,3 +1,4 @@
-local\dev\TPTrace\TPTrace.class
-local\dev\TPTrace\DataModerator.class
-local\dev\TPTrace\Teleporter.class
+io\github\soulofakuma\DataModerator.class
+io\github\soulofakuma\Teleporter.class
+io\github\soulofakuma\TPTrace.class
+io\github\soulofakuma\LocationList.class
