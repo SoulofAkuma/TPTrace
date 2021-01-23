@@ -47,7 +47,7 @@ public class LocationList implements CommandExecutor {
 						String.valueOf(i + 1) + ". Step: Coordinates: " + 
 						String.valueOf(Math.round(loc.getX())) + ", " + String.valueOf(Math.round(loc.getY())) + ", " + String.valueOf(Math.round(loc.getZ())) +
 						" | World: " + loc.getWorld().getName() +
-						" | Distance: " + Math.round(loc.distance(player.getLocation())));
+						" | Distance: " + ((loc.getWorld().equals(player.getLocation().getWorld())) ? Math.round(loc.distance(player.getLocation())) : "-"));
 				c = (c == ChatColor.GRAY) ? ChatColor.DARK_GRAY : ChatColor.GRAY;
 			}
 			player.sendMessage(ChatColor.YELLOW + "-----------------------------------------------------");
