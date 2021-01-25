@@ -89,14 +89,15 @@ public class DataModerator implements Runnable {
 		return null;
 	}
 	
-	public void changeTriggerState(Player player) {
-		this.triggering.put(player, !this.triggering.get(player));
+	public void disableTrigger(Player player) {
+		this.triggering.put(player, true);
+	}
+	
+	public void enableTrigger(Player player) {
+		this.triggering.put(player, false);
 	}
 	
 	public boolean isTriggering(Player player) {
-		if (this.triggering.get(player)) {
-			return true;
-		}
-		return false;
+		return this.triggering.get(player);
 	}
 }

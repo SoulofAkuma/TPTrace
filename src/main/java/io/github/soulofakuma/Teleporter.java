@@ -82,10 +82,17 @@ public class Teleporter implements CommandExecutor, Listener {
 		if (loc == null) {
 			TPTrace.sendMessage(player, ChatColor.DARK_RED + "There is nowhere to go back to!");
 		} else {
-			this.moderator.changeTriggerState(player);
+			this.moderator.disableTrigger(player);
 			player.teleport(loc);
 			TPTrace.sendMessage(player, ChatColor.GOLD + "Teleported back!");
-			this.moderator.changeTriggerState(player);
+			final Player playerWrapper = player;
+			this.plugin.getServer().getScheduler().scheduleSyncDelayedTask(this.plugin, new Runnable() {
+				
+				public void run() {
+					moderator.enableTrigger(playerWrapper);
+					
+				}
+			}, 4);
 		}
 	}
 	
