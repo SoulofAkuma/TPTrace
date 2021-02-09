@@ -68,10 +68,14 @@ public class Teleporter implements CommandExecutor, Listener {
 				teleport(player, this.moderator.removeLocations(player, 1));
 			} else if (args.length == 1 && Teleporter.isInt(args[0])) {
 				int steps = Integer.parseInt(args[0]);
-				if (steps < 1) return false;
+				if (steps < 1) {
+					TPTrace.sendMessage(player, ChatColor.RED + " How is that supposed to work? You can't go " + String.valueOf(steps) + " steps back!");
+					return true;
+				}
 				teleport(player, this.moderator.removeLocations(player, steps));
-			} else {
-				return false;
+			} else if (args.length == 1 && !Teleporter.isInt(args[0])){
+				TPTrace.sendMessage(player, ChatColor.RED + args[0] + " is not a number!");
+				return true;
 			}
 			return true;
 		} else {
