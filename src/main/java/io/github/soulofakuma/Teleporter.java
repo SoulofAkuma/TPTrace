@@ -12,6 +12,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.plugin.Plugin;
 
 public class Teleporter implements CommandExecutor, Listener {
@@ -37,6 +38,7 @@ public class Teleporter implements CommandExecutor, Listener {
 	
 	@EventHandler
 	public void onPlayerTeleport(PlayerTeleportEvent event) {
+		if (event.getCause() == TeleportCause.UNKNOWN) return;
 		if (!this.moderator.isTriggering(event.getPlayer())) {
 			this.moderator.addLocation(event.getPlayer(), this.moderator.getPreviousLocation(event.getPlayer()));
 		}

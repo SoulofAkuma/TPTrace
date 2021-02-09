@@ -8,7 +8,7 @@ commands:
     permission: tptrace.back
     permission-message: You don't have the permission to run this command!
   backlist:
-    description: See a list of past locations you've teleported from.
-    usage: /backlist [optional number of steps]
+    description: See a list of past locations you've teleported from. With the clear keyword you can remove the given number of steps from the end of your list without teleporting.
+    usage: /backlist [optional number of steps] [optional clear]
     permission: tptrace.backlist
     permission-message: You don't have the permission to run this command!
